@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="tinkercad.css" />
+<title>TINKER TRADE | The Team</title>
+<link rel="icon" type="image/png" href="account.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r132/three.min.js"></script>
+<style>
+  /* Team page specific styles */
+  .team-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 5px auto 0;
+    position: relative;
+  }
+
+  .team-header {
+    font-family: var(--display-font);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    letter-spacing: 3px;
+    line-height: 1.3;
+    color: rgb(var(--terminal-green));
+    text-shadow: 0 0 10px rgba(var(--terminal-green), 0.7);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fade-in 0.5s forwards;
+    animation-delay: 1.2s;
+  }
+
+  .team-intro {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 800px;
+    color: rgba(var(--terminal-green), 0.9);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fade-in 0.5s forwards;
+    animation-delay: 1.7s;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .team-member {
+    background: rgba(var(--dark), 0.7);
+    border: 1px solid rgba(var(--terminal-green), 0.5);
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .team-member:nth-child(1) { animation: fade-in 0.5s forwards; animation-delay: 2.2s; }
+  .team-member:nth-child(2) { animation: fade-in 0.5s forwards; animation-delay: 2.5s; }
+  .team-member:nth-child(3) { animation: fade-in 0.5s forwards; animation-delay: 2.8s; }
+
+  .team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(var(--terminal-green), 0.2);
+    border-color: rgb(var(--terminal-green));
+  }
+
+  .team-member::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgb(var(--terminal-green)), transparent);
+  }
+
+  .team-member::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      45deg,
+      transparent 0%,
+      rgba(var(--terminal-green), 0.05) 50%,
+      transparent 100%
+    );
+    z-index: -1;
+  }
+
+  .avatar-container {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    position: relative;
+    border: 1px solid rgba(var(--terminal-green), 0.5);
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background: rgba(var(--darker), 0.5);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .avatar-matrix {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-family: var(--terminal-font);
+    font-size: 9px;
+    line-height: 1;
+    color: rgb(var(--terminal-green));
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .matrix-row {
+    display: flex;
+    animation: slide 20s linear infinite;
+  }
+
+  .matrix-row:nth-child(odd) {
+    animation-direction: reverse;
+  }
+
+  @keyframes slide {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .hexagon {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hexagon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .codename {
+    font-family: var(--display-font);
+    font-size: 24px;
+    text-transform: uppercase;
+    color: rgb(var(--terminal-green));
+    margin-bottom: 10px;
+    text-align: center;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px rgba(var(--terminal-green), 0.7);
+  }
+
+  .role {
+    font-family: var(--terminal-font);
+    font-size: 14px;
+    color: rgba(var(--terminal-green), 0.8);
+    margin-bottom: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .terminal-card {
+    background: rgba(var(--darker), 0.7);
+    border: 1px solid rgba(var(--terminal-green), 0.3);
+    padding: 15px;
+    font-family: var(--terminal-font);
+    font-size: 14px;
+    color: rgba(var(--terminal-green), 0.9);
+    line-height: 1.5;
+    margin-top: 15px;
+    position: relative;
+  }
+
+  .terminal-card::before {
+    content: "[SYSTEM DATA]";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: rgba(var(--darker), 0.9);
+    padding: 0 5px;
+    font-size: 12px;
+    color: rgba(var(--terminal-green), 0.7);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: rgba(var(--terminal-green), 0.7);
+    margin-bottom: 5px;
+  }
+
+  .stat-value {
+    font-size: 14px;
+    color: rgb(var(--terminal-green));
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 5px;
+    background: rgba(var(--terminal-green), 0.2);
+    margin-top: 5px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: rgb(var(--terminal-green));
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: progress-animation 1s ease-out forwards;
+    animation-delay: calc(3s + var(--delay));
+    width: 0;
+  }
+
+  @keyframes progress-animation {
+    from { width: 0; }
+    to { width: var(--width); }
+  }
+
+  .security-alert {
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background: rgba(var(--dark), 0.9);
+    border: 1px solid rgba(var(--neon-red), 0.7);
+    color: rgb(var(--neon-red));
+    font-family: var(--terminal-font);
+    font-size: 14px;
+    border-radius: 3px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    animation: alert-fade-in 0.5s forwards;
+    animation-delay: 5s;
+  }
+
+  @keyframes alert-fade-in {
+    from { opacity: 0; transform: translate(-50%, 20px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+  }
+
+  .alert-icon {
+    margin-right: 10px;
+    animation: pulse-alert 2s infinite;
+  }
+
+  @keyframes pulse-alert {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .hidden-data {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  /* Batman specific */
+  .team-member.batman .avatar-container {
+    border-color: rgba(var(--neon-blue), 0.7);
+  }
+  
+  .team-member.batman .codename {
+    color: rgb(var(--neon-blue));
+    text-shadow: 0 0 5px rgba(var(--neon-blue), 0.7);
+  }
+
+  /* Hermione specific */
+  .team-member.hermione .avatar-container {
+    border-color: rgba(var(--neon-red), 0.7);
+  }
+  
+  .team-member.hermione .codename {
+    color: rgb(var(--neon-red));
+    text-shadow: 0 0 5px rgba(var(--neon-red), 0.7);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 767px) {
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .team-intro {
+      padding: 0 20px;
+    }
+    
+    .security-alert {
+      width: 90%;
+      text-align: center;
+      justify-content: center;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="content-container">
+  <!-- WebGL Background -->
+  <div id="webgl-container"></div>
+
+  <!-- Grid Overlay -->
+  <div class="grid-overlay"></div>
+
+  <!-- Terminal Container with fixed styling -->
+  <div class="terminal-container terminal-fade-out">
+    <!-- Terminal output with hacker-style commands -->
+    <div class="terminal-line">$ sudo ./access_team_profiles.sh --secure-tunnel</div>
+    <div class="terminal-line">Authenticating with quantum key... [VERIFIED]</div>
+    <div class="terminal-line">Initializing encrypted data stream... [OK]</div>
+    <div class="terminal-line">Bypassing network detection algorithms... [COMPLETE]</div>
+    <div class="terminal-line">Accessing personnel database through proxy chain...</div>
+    <div class="terminal-line">Access granted. Team data decrypted.</div>
+  </div>
+
+  <!-- Header with glitch effect -->
+  <header class="glitch-header">
+    <div class="glitch-logo">TINKER_TRADE</div>
+    <div class="navigation-area">
+      <div class="system-details">
+        <span class="status-online">SYSTEM: ONLINE</span>
+        <span class="status-secure">TUNNELS: SECURE</span>
+        <span class="status-encrypted">COMMS: ENCRYPTED</span>
+      </div>
+      <!-- Navigation Buttons -->
+      <a href="index.html" class="nav-button team-btn">
+        <span class="button-icon">[🧱]</span> Home
+      </a>
+      <a href="product.html" class="nav-button products-btn">
+        <span class="button-icon">[⚙]</span> Products
+      </a>
+     
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <div class="content-wrapper">
+    <section id="team" class="team-section">
+      <h1 class="team-header">The Architects</h1>
+      <p class="team-intro">
+        Our team operates in shadows, connecting encrypted networks across hostile environments.
+        We are hackers, engineers, and digital freedom fighters who believe in secure communication
+        for all. Identities protected, skills unmatched. Communication is power.
+      </p>
+
+      <div class="team-grid">
+        <!-- Team Member: TGMafia -->
+        <div class="team-member">
+          <div class="avatar-container">
+            <div class="avatar-placeholder">
+              <div class="avatar-matrix">
+                <div class="matrix-row">01010111 00110001 01010100 01001000 00110000 01010101</div>
+                <div class="matrix-row">01010100 00100000 01000110 01000101 00110100 01010010</div>
+                <div class="matrix-row">01001100 00110001 01010100 01000101 00100000 01001001</div>
+                <div class="matrix-row">01010011 00100000 01010000 00110000 01010111 01000101</div>
+                <div class="matrix-row">01010010 00110001 01000101 01010011 01010011 00100000</div>
+              </div>
+              <div class="hexagon">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <polygon points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25" stroke="rgba(0,255,70,0.7)" stroke-width="2" fill-opacity="0.1"/>
+                  <text x="50" y="55" font-family="'Fira Code', monospace" font-size="10" fill="rgb(0,255,70)" text-anchor="middle">TGMAFIA</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <h2 class="codename">TGMAFIA</h2>
+          <div class="role">Network Infrastructure Specialist</div>
+          <div class="terminal-card">
+            <p>Primary architect of our quantum-resistant tunneling system. Expert in network penetration and offensive security. Responsible for establishing secure infrastructure across hostile networks.</p>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="stat-label">ENCRYPTION</span>
+                <span class="stat-value">LEVEL 9</span>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="--width: 90%; --delay: 0.1s"></div>
+                </div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">NETWORK</span>
+                <span class="stat-value">LEVEL 10</span>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="--width: 100%; --delay: 0.2s"></div>
+                </div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">OPERATIONS</span>
+                <span class="stat-value">LEVEL 8</span>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="--width: 80%; --delay: 0.3s"></div>
+                </div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">PROTOCOLS</span>
+                <span class="stat-value">CUSTOM</span>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="--width: 95%; --delay: 0.4s"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member: Batman -->
+        <div class="team-member batman">
+          <div class="avatar-container">
+            <div class="avatar-placeholder">
+              <div class="avatar-matrix">
+                <div class="matrix-row">01000100 01000001 01010010 01001011 00100000 01001011</div>
+                <div class="matrix-row">01001110 01001001 01000111 01001000 01010100 00100000</div>
+                <div class="matrix-row">01010000 01010010 00110000 01010100 01000101 01000011</div>
+                <div class="matrix-row">01010100 00110000 01010010 00100000 01000100 01000101</div>
+                <div class="matrix-row">01000110 01000101 01001110 01000100 01000101 01010010</div>
+              </div>
+              <div class="hexagon">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <polygon points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25" stroke="rgba(50,150,255,0.7)" stroke-width="2" fill-opacity="0.1"/>
+                  <text x="50" y="55" font-family="'Fira Code', monospace" font-size="10" fill="rgb(50,150,255)" text-anchor="middle">BATMAN</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <h2 class="codename">BATMAN</h2>
+          <div class="role">Security Systems Engineer</div>
+          <div class="terminal-card">
+            <p>Lead developer of TinkerOS and our proprietary hardware devices. Specializes in implementing custom cryptographic protocols and hardware security modules. The vigilant protector of our systems.</p>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="stat-label">SECURITY</span>
+                <span class="stat-value">LEVEL 10</span>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="--width: 100%; --delay: 0.1s"></div>
+                </div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">HARDWARE</span>
+                <span class="stat-value">LEVEL 9</span>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="--width: 90%; --delay: 0.2s"></div>
+                </div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">CRYPTO</span>
+                <span class="stat-value">LEVEL 9</span>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="--width: 90%; --delay: 0.3s"></div>
+                </div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">STEALTH</span>
+                <span class="stat-value">LEGEND</span>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="--width: 100%; --delay: 0.4s"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member: Hermione -->
+        <div class="team-member hermione">
+          <div class="avatar-container">
+            <div class="avatar-placeholder">
+              <div class="avatar-matrix">
+                <div class="matrix-row">01000011 01010010 01011001 01010000 01010100 00110000</div>
+                <div class="matrix-row">01010111 01001001 01011010 01000001 01010010 01000100</div>
+                <div class="matrix-row">01000001 01001100 01000111 00110000 01010010 01001001</div>
+                <div class="matrix-row">01010100 01001000 01001101 00100000 01000010 01010010</div>
+                <div class="matrix-row">01000101 01000001 01001011 01000101 01010010 00100000</div>
+              </div>
+              <div class="hexagon">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <polygon points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25" stroke="rgba(255,50,50,0.7)" stroke-width="2" fill-opacity="0.1"/>
+                  <text x="50" y="55" font-family="'Fira Code', monospace" font-size="10" fill="rgb(255,50,50)" text-anchor="middle">HERMIONE</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <h2 class="codename">HERMIONE</h2>
+          <div class="role">Cryptography Specialist</div>
+          <div class="terminal-card">
+            <p>The algorithmic wizard behind our quantum-resistant cryptography systems. Expert in post-quantum cryptographic protocols and zero-knowledge authentication methods. Ensures unbreakable communication channels.</p>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="stat-label">CRYPTO</span>
+                <span class="stat-value">LEVEL 9</span>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="--width: 100%; --delay: 0.1s"></div>
+                </div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">CODE</span>
+                <span class="stat-value">LEVEL 9</span>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="--width: 90%; --delay: 0.2s"></div>
+                </div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">ANALYSIS</span>
+                <span class="stat-value">LEVEL 10</span>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="--width: 90%; --delay: 0.3s"></div>
+                </div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">KNOWLEDGE</span>
+                <span class="stat-value">LEVEL 9</span>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="--width: 95%; --delay: 0.4s"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Security Alert -->
+  <div class="security-alert">
+    <span class="alert-icon">⚠</span> SECURITY NOTICE: All identifying data has been sanitized for OPSEC purposes
+  </div>
+
+
+  <!-- Footer with security indicators -->
+  <footer class="footer">
+    <div class="security-indicators">
+      <div class="indicator">
+        <div class="indicator-dot indicator-active"></div>
+        <span>E2E Encryption</span>
+      </div>
+      <div class="indicator">
+        <div class="indicator-dot indicator-active"></div>
+        <span>No Metadata</span>
+      </div>
+      <div class="indicator">
+        <div class="indicator-dot indicator-active"></div>
+        <span>Quantum-Safe</span>
+      </div>
+    </div>
+    <div class="onion-address">TOR: tinkertrade3xr72keb7dna.onion</div>
+  </footer>
+
+  <!-- Scanlines overlay effect -->
+  <div class="scanlines"></div>
+</div>
+
+<script>
+// Enhanced terminal animation with improved commands
+const commandInput = document.createElement('div');
+commandInput.className = 'command-prompt';
+commandInput.innerHTML = '<span class="prompt-symbol">root@tinkeros:~#</span> <input type="text" class="command-input" autofocus placeholder="Enter command...">';
+setTimeout(() => {
+  document.querySelector('.terminal-container').appendChild(commandInput);
+  document.querySelector('.command-input').focus();
+}, 3000);
+
+// Simple WebGL background
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.getElementById('webgl-container').appendChild(renderer.domElement);
+
+// Grid of points
+const geometry = new THREE.BufferGeometry();
+const count = 1000;
+const positions = new Float32Array(count * 3);
+
+for (let i = 0; i < count; i++) {
+  positions[i * 3] = (Math.random() - 0.5) * 50;
+  positions[i * 3 + 1] = (Math.random() - 0.5) * 50;
+  positions[i * 3 + 2] = (Math.random() - 0.5) * 50;
+}
+
+geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+const material = new THREE.PointsMaterial({
+  size: 0.1,
+  color: 0x00ff45,
+  transparent: true,
+  opacity: 0.7
+});
+
+const points = new THREE.Points(geometry, material);
+scene.add(points);
+
+camera.position.z = 30;
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  points.rotation.x += 0.0005;
+  points.rotation.y += 0.0005;
+
+  renderer.render(scene, camera);
+}
+
+animate();
+
+// Handle resize
+window.addEventListener('resize', () => {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(width, height);
+});
+
+// Create the binary matrix effect for avatars
+const matrixElements = document.querySelectorAll('.avatar-matrix');
+matrixElements.forEach(matrix => {
+  // Create more matrix rows
+  for (let i = 0; i < 8; i++) {
+    const row = document.createElement('div');
+    row.className = 'matrix-row';
+    let binaryString = '';
+    for (let j = 0; j < 6; j++) {
+      binaryString += Math.random() > 0.5 ? '0' : '1';
+      binaryString += Math.random() > 0.5 ? '0' : '1';
+      binaryString += Math.random() > 0.5 ? '0' : '1';
+      binaryString += Math.random() > 0.5 ? '0' : '1';
+      binaryString += Math.random() > 0.5 ? '0' : '1';
+      binaryString += Math.random() > 0.5 ? '0' : '1';
+      binaryString += Math.random() > 0.5 ? '0' : '1';
+      binaryString += Math.random() > 0.5 ? '0' : '1';
+      binaryString += ' ';
+    }
+    row.textContent = binaryString;
+    matrix.appendChild(row);
+  }
+});
+
+// Add command input functionality
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    const commandInput = document.querySelector('.command-input');
+    if (commandInput) {
+      commandInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const command = commandInput.value.trim();
+          if (command) {
+            const newLine = document.createElement('div');
+            newLine.className = 'terminal-line';
+            newLine.textContent = `root@tinkeros:~# ${command}`;
+            
+            const response = document.createElement('div');
+            response.className = 'terminal-line';
+            
+            if (command.toLowerCase().includes('help')) {
+              response.textContent = 'Available commands: help, status, team, access, exit';
+            } else if (command.toLowerCase().includes('status')) {
+              response.textContent = 'All systems operational. Quantum tunnels active. Security level: MAXIMUM';
+            } else if (command.toLowerCase().includes('exit')) {
+              response.textContent = 'Disconnecting secure session...';
+              setTimeout(() => {
+                document.querySelector('.terminal-container').style.display = 'none';
+              }, 1000);
+            } else if (command.toLowerCase().includes('team')) {
+              response.textContent = 'Team data already displayed on screen. Encryption level: MAXIMUM';
+            } else if (command.toLowerCase().includes('access')) {
+              response.textContent = 'ERROR: Additional authentication required. Contact team directly.';
+            } else {
+              response.textContent = `Command not recognized: "${command}". Type "help" for available commands.`;
+            }
+            
+            const terminalContainer = document.querySelector('.terminal-container');
+            terminalContainer.insertBefore(newLine, commandInput.parentNode);
+            terminalContainer.insertBefore(response, commandInput.parentNode);
+            commandInput.value = '';
+          }
+        }
+      });
+    }
+  }, 3500);
+});
+</script>
+
+</body>
+</html>

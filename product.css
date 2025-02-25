@@ -1,0 +1,200 @@
+:root {
+    --terminal-green: 0, 255, 70;
+    --terminal-green-dim: 0, 150, 40;
+    --neon-red: 255, 50, 50;
+    --neon-blue: 50, 150, 255;
+    --dark: 10, 10, 15;
+    --darker: 5, 5, 10;
+    --glass: 10, 15, 20;
+    --terminal-font: 'Fira Code', monospace;
+    --display-font: 'Major Mono Display', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: rgb(var(--darker));
+    color: rgb(var(--terminal-green));
+    font-family: var(--terminal-font);
+}
+
+/* CRT Effect */
+.crt-effect {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, 
+        rgba(0,255,70,0.1) 0%, 
+        rgba(0,255,70,0) 30%),
+        repeating-linear-gradient(0deg, 
+        rgba(0,255,70,0.05) 0%, 
+        rgba(0,255,70,0.05) 1px, 
+        transparent 2px, 
+        transparent 5px);
+    pointer-events: none;
+    z-index: 9999;
+    animation: crt-flicker 0.15s infinite;
+}
+
+@keyframes crt-flicker {
+    0% { opacity: 0.9; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
+/* Cyber Overlay */
+.cyber-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 50% 50%, 
+            rgba(0,255,70,0.05) 0%, 
+            transparent 70%),
+        repeating-conic-gradient(
+            from 0deg at 50% 50%,
+            rgba(0,255,70,0.1) 0deg,
+            transparent 1deg,
+            transparent 10deg,
+            rgba(0,255,70,0.1) 10.5deg,
+            transparent 11deg);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Enhanced Header */
+.glitch-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 20px;
+    background: rgba(var(--dark), 0.8);
+    border-bottom: 1px solid rgba(var(--terminal-green), 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 0 30px rgba(var(--terminal-green), 0.2);
+}
+
+.glitch-logo {
+    font-family: var(--display-font);
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: rgb(var(--terminal-green));
+    text-shadow: 0 0 5px rgba(var(--terminal-green), 0.7);
+    position: relative;
+}
+
+/* Navigation */
+.navigation-area {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-button {
+    background: rgba(var(--dark), 0.7);
+    border: 1px solid rgba(var(--terminal-green), 0.5);
+    color: rgb(var(--terminal-green));
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-button:hover {
+    background: rgba(var(--terminal-green), 0.1);
+    box-shadow: 0 0 15px rgba(var(--terminal-green), 0.5);
+}
+
+/* Main Content */
+.content-wrapper {
+    margin-top: 80px;
+    padding: 20px;
+    min-height: calc(100vh - 100px);
+}
+
+.page-title {
+    font-family: var(--display-font);
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 40px 0;
+    text-shadow: 0 0 10px rgba(var(--terminal-green), 0.7);
+}
+
+/* Media Query for Mobile Screens */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 1.8rem;  /* Smaller font size for better readability */
+        margin: 20px 0;     /* Reduce margin for compact view */
+        text-shadow: 0 0 5px rgba(var(--terminal-green), 0.7); /* Adjust shadow */
+    }
+}
+
+
+/* Quantum Grid Background */
+#webgl-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+/* Product Grid */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-card {
+    background: rgba(var(--dark), 0.8);
+    border: 1px solid rgba(var(--terminal-green), 0.5);
+    border-radius: 5px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(var(--terminal-green), 0.2);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .glitch-header {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .navigation-area {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+    }
+}

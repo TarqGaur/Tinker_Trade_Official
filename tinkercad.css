@@ -1,0 +1,1156 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Major+Mono+Display&display=swap');
+
+:root {
+  --terminal-green: 0, 255, 70;
+  --terminal-green-dim: 0, 150, 40;
+  --neon-red: 255, 50, 50;
+  --neon-blue: 50, 150, 255;
+  --dark: 10, 10, 15;
+  --darker: 5, 5, 10;
+  --glass: 10, 15, 20;
+  --terminal-font: 'Fira Code', monospace;
+  --display-font: 'Major Mono Display', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  /* Prevent vertical scrollbar from appearing */
+  overflow-y: hidden;
+}
+
+body {
+  background: rgb(var(--darker));
+  color: rgb(var(--terminal-green));
+  font-family: var(--terminal-font);
+  position: relative;
+}
+
+/* Terminal-like container */
+.terminal-container {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  max-width: 90%;
+  background: rgba(var(--dark), 0.9);
+  border: 1px solid rgba(var(--terminal-green), 0.5);
+  border-radius: 5px;
+  padding: 20px;
+  overflow: hidden;
+  z-index: 100;
+  box-shadow: 0 0 15px rgba(var(--terminal-green), 0.3);
+}
+
+/* Terminal fade out animation */
+.terminal-fade-out {
+  animation: fade-out 1s forwards;
+  animation-delay: 5s;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+
+/* Grid lines */
+.grid-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 50px 50px;
+  background-image:
+    linear-gradient(rgba(var(--terminal-green), 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--terminal-green), 0.05) 1px, transparent 1px);
+  z-index: -1;
+}
+
+/* Scanlines effect */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(var(--terminal-green), 0.03) 50%,
+    transparent 100%
+  );
+  background-size: 100% 4px;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* WebGL Background */
+#webgl-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+/* Header with noise effect */
+.glitch-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 20px;
+  background: rgba(var(--dark), 0.8);
+  border-bottom: 1px solid rgba(var(--terminal-green), 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+.glitch-logo {
+  font-family: var(--display-font);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: rgb(var(--terminal-green));
+  text-shadow: 0 0 5px rgba(var(--terminal-green), 0.7);
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-logo::before, .glitch-logo::after {
+  content: 'TINKER_TRADE';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch-logo::before {
+  color: rgba(255, 0, 0, 0.7);
+  animation: glitch-effect 3s infinite alternate-reverse;
+  z-index: -1;
+}
+
+.glitch-logo::after {
+  color: rgba(0, 255, 255, 0.7);
+  animation: glitch-effect 2s infinite alternate;
+  z-index: -2;
+}
+
+@keyframes glitch-effect {
+  0%, 5%, 10%, 15%, 20%, 25%, 30%, 35%, 40%, 45%, 50%, 55%, 60%, 65%, 70%, 75%, 80%, 85%, 90%, 95%, 100% {
+    transform: none;
+    opacity: 0.8;
+  }
+  7.5% {
+    transform: translate(2px, 0);
+  }
+  27.5% {
+    transform: translate(-2px, 0);
+  }
+  45% {
+    transform: translate(2px, 0);
+  }
+  72.5% {
+    transform: translate(0, 2px);
+  }
+  82.5% {
+    transform: translate(0, -2px);
+  }
+  97.5% {
+    transform: translate(-2px, 0);
+  }
+}
+
+.navigation-area {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.system-details {
+  font-size: 12px;
+  color: rgba(var(--terminal-green), 0.7);
+  margin-right: 30px;
+}
+
+.system-details span {
+  display: inline-block;
+  margin-left: 15px;
+}
+
+.status-online {
+  color: rgb(var(--terminal-green));
+}
+
+.status-secure {
+  color: rgb(var(--terminal-green));
+}
+
+.status-encrypted {
+  color: rgb(var(--terminal-green));
+}
+
+/* Unique navbar buttons */
+.nav-button {
+  position: relative;
+  background: rgba(var(--dark), 0.7);
+  border: 1px solid rgba(var(--terminal-green), 0.5);
+  color: rgb(var(--terminal-green));
+  font-family: var(--terminal-font);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 15px;
+  margin: 0 5px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav-button:hover {
+  background: rgba(var(--terminal-green), 0.1);
+  box-shadow: 0 0 15px rgba(var(--terminal-green), 0.5);
+}
+
+.nav-button.products-btn:hover {
+  border-color: rgb(var(--neon-blue));
+  color: rgb(var(--neon-blue));
+  box-shadow: 0 0 15px rgba(var(--neon-blue), 0.5);
+}
+
+.nav-button.team-btn:hover {
+  border-color: rgb(var(--neon-red));
+  color: rgb(var(--neon-red));
+  box-shadow: 0 0 15px rgba(var(--neon-red), 0.5);
+}
+
+.nav-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent,
+    rgba(var(--terminal-green), 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.nav-button:hover::before {
+  left: 100%;
+}
+
+.button-icon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+/* Main content */
+.content-wrapper {
+  margin-top: 80px;
+  padding: 20px;
+  height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  position: relative;
+}
+
+/* Terminal animation effect */
+.terminal-line {
+  font-family: var(--terminal-font);
+  font-size: 16px;
+  color: rgb(var(--terminal-green));
+  margin-bottom: 10px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fade-in 0.5s forwards;
+}
+
+.terminal-line:nth-child(1) { animation-delay: 0.2s; }
+.terminal-line:nth-child(2) { animation-delay: 0.7s; }
+.terminal-line:nth-child(3) { animation-delay: 1.2s; }
+.terminal-line:nth-child(4) { animation-delay: 1.7s; }
+.terminal-line:nth-child(5) { animation-delay: 2.2s; }
+.terminal-line:nth-child(6) { animation-delay: 2.7s; }
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blink {
+  animation: blink-cursor 1s step-end infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Command prompt */
+.command-prompt {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.prompt-symbol {
+  color: rgb(var(--terminal-green));
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.command-input {
+  background: none;
+  border: none;
+  color: rgb(var(--terminal-green));
+  font-family: var(--terminal-font);
+  font-size: 16px;
+  outline: none;
+  caret-color: rgb(var(--terminal-green));
+  flex-grow: 1;
+}
+
+/* Main hero section */
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 90px; /* Reduced from 120px to move text up */
+  text-align: center;
+  padding: 0 20px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  /* Set a fixed height for the changing-word element to prevent layout shifts */
+  position: relative;
+}
+
+.hero-title {
+  font-family: var(--display-font);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  letter-spacing: 3px;
+  line-height: 1.3;
+  color: rgb(var(--terminal-green));
+  text-shadow: 0 0 10px rgba(var(--terminal-green), 0.7);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fade-in 0.5s forwards;
+  animation-delay: 3.2s;
+  /* Add height to ensure consistent sizing */
+  height: auto;
+}
+
+.hero-text {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  max-width: 700px;
+  color: rgba(var(--terminal-green), 0.9);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fade-in 0.5s forwards;
+  animation-delay: 3.7s;
+}
+
+/* Typing animation for the changing word */
+.changing-word {
+  color: rgb(var(--neon-red));
+  text-shadow: 0 0 10px rgba(var(--neon-red), 0.7); /* Full red glow effect */
+  background: none; /* Remove any background */
+  position: relative;
+  display: inline-block;
+  /* Set a fixed width to prevent layout shifts */
+  min-width: 120px; 
+  height: 1.3em; /* Fixed height */
+  text-align: left;
+  overflow: hidden; /* Prevent overflow from causing scrollbar */
+}
+
+.changing-word::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: 0;
+  height: 100%;
+  border-right: 2px solid rgb(var(--neon-red)); /* Changed to red cursor */
+  animation: blink-cursor 0.7s step-end infinite;
+}
+
+/* Bottom CTA Section - Moved to bottom of page before footer */
+.bottom-cta-section {
+  position: fixed;
+  bottom: 60px; /* Position above footer */
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 90;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fade-in 0.5s forwards;
+  animation-delay: 4.2s;
+}
+
+.terminal-button {
+  display: inline-block;
+  padding: 15px 30px;
+  background: rgba(var(--dark), 0.7);
+  border: 1px solid rgba(var(--terminal-green), 0.5);
+  color: rgb(var(--terminal-green));
+  font-family: var(--terminal-font);
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.terminal-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(var(--terminal-green), 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.terminal-button:hover {
+  background: rgba(var(--terminal-green-dim), 0.1);
+  border-color: rgb(var(--terminal-green));
+  box-shadow: 0 0 10px rgba(var(--terminal-green), 0.5);
+}
+
+.terminal-button:hover::before {
+  left: 100%;
+}
+
+/* Binary visualization */
+.binary-visualization {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto; /* Reduced top margin */
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fade-in 0.5s forwards;
+  animation-delay: 4.7s;
+}
+
+.device-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+  border: 2px solid rgba(var(--terminal-green), 0.5);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(var(--dark), 0.5);
+}
+
+.device {
+  width: 90px;
+  height: 120px;
+  background: rgba(var(--dark), 0.8);
+  border: 1px solid rgba(var(--terminal-green), 0.7);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.device-screen {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: calc(100% - 20px);
+  height: 60px;
+  background: rgba(0, 20, 0, 0.9);
+  border: 1px solid rgba(var(--terminal-green), 0.5);
+  overflow: hidden;
+}
+
+.device-screen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(var(--terminal-green), 0.1) 51%,
+    transparent 52%
+  );
+  background-size: 100% 4px;
+  animation: scan 2s linear infinite;
+}
+
+@keyframes scan {
+  from { transform: translateY(0); }
+  to { transform: translateY(60px); }
+}
+
+.device-screen-content {
+  font-family: var(--terminal-font);
+  font-size: 6px;
+  line-height: 1.2;
+  color: rgba(var(--terminal-green), 0.9);
+  padding: 5px;
+  overflow: hidden;
+}
+
+.binary-stream {
+  position: absolute;
+  background: rgba(var(--terminal-green), 0.3);
+  border-radius: 50%;
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.1); opacity: 0.5; }
+}
+
+.data-stream {
+  position: absolute;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--terminal-green), 0),
+    rgba(var(--terminal-green), 0.7),
+    rgba(var(--terminal-green), 0)
+  );
+  animation: data-flow 2s linear infinite;
+}
+
+@keyframes data-flow {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(300px); }
+}
+
+.transmission-label {
+  position: absolute;
+  font-size: 10px;
+  color: rgba(var(--terminal-green), 0.7);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Footer with information indicators */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px;
+  background: rgba(var(--dark), 0.8);
+  border-top: 1px solid rgba(var(--terminal-green), 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  z-index: 100;
+}
+
+.security-indicators {
+  display: flex;
+  gap: 20px;
+}
+
+.indicator {
+  display: flex;
+  align-items: center;
+}
+
+.indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.indicator-active {
+  background: rgb(var(--terminal-green));
+  box-shadow: 0 0 5px rgba(var(--terminal-green), 0.7);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.indicator-inactive {
+  background: rgb(var(--neon-red));
+}
+
+.onion-address {
+  font-size: 12px;
+  color: rgba(var(--terminal-green), 0.7);
+}
+
+/* Make container scrollable if needed, but prevent unnecessary scrollbars */
+.content-container {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Complete Mobile-First Overhaul for TINKER TRADE
+   Focusing on phone users as the primary audience */
+
+/* Base mobile styles - applies to all mobile devices first */
+@media screen and (max-width: 767px) {
+    /* Fix scrolling issues */
+    html, body {
+      overflow-y: auto !important;
+      height: auto !important;
+    }
+    
+    body {
+      min-height: 100vh;
+    }
+    
+    .content-container {
+      height: auto;
+      min-height: 100vh;
+      overflow-y: visible;
+    }
+  
+    /* Adjust header to be fixed and compact */
+    .glitch-header {
+      height: auto;
+      padding: 10px;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .glitch-logo {
+      font-size: 20px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+  
+    /* Better navigation for mobile */
+    .navigation-area {
+      width: 100%;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+  
+    .system-details {
+      display: none; /* Hide on mobile to save space */
+    }
+  
+    .nav-button {
+      padding: 10px 15px;
+      width: 45%;
+      justify-content: center;
+      font-size: 14px;
+      margin: 0;
+    }
+  
+    /* Content spacing */
+    .content-wrapper {
+      margin-top: 130px;
+      padding: 15px;
+      height: auto;
+    }
+  
+    /* Hero section adjustments */
+    .hero-section {
+      margin-top: 0;
+      padding: 0 10px;
+    }
+  
+    .hero-title {
+      font-size: 1.5rem;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+  
+    .changing-word {
+      min-width: 80px;
+    }
+  
+    .hero-text {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 30px;
+    }
+  
+    /* Fix terminal container */
+    .terminal-container {
+      position: absolute;
+      top: 100px;
+      width: 90%;
+      max-width: 90%;
+      padding: 10px;
+      z-index: 1;
+    }
+  
+    .terminal-line {
+      font-size: 10px;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  
+    /* Scale down and center the binary visualization */
+    .binary-visualization {
+      width: 200px;
+      height: 200px;
+      transform: scale(0.8);
+      margin: 0 auto 20px;
+    }
+  
+    .binary-stream {
+      opacity: 0.5; /* Reduce opacity for less visual noise */
+    }
+  
+    /* First binary stream */
+    .binary-stream:nth-child(1) {
+      width: 180px !important;
+      height: 180px !important;
+      top: 10px !important;
+      left: 10px !important;
+    }
+  
+    /* Second binary stream */
+    .binary-stream:nth-child(2) {
+      width: 140px !important;
+      height: 140px !important;
+      top: 30px !important;
+      left: 30px !important;
+    }
+  
+    /* Third binary stream */
+    .binary-stream:nth-child(3) {
+      width: 100px !important;
+      height: 100px !important;
+      top: 50px !important;
+      left: 50px !important;
+    }
+  
+    /* Adjust device size */
+    .device-container {
+      width: 100px;
+      height: 100px;
+    }
+  
+    .device {
+      width: 60px;
+      height: 80px;
+    }
+  
+    .device-screen {
+      top: 8px;
+      left: 8px;
+      width: calc(100% - 16px);
+      height: 40px;
+    }
+  
+    .device-screen-content {
+      font-size: 4px;
+      padding: 3px;
+    }
+  
+    /* Simplify data streams */
+    .data-stream {
+      width: 1px !important;
+      height: 80px !important;
+    }
+  
+    /* First data stream */
+    .data-stream:nth-child(4) {
+      left: 40px !important;
+      top: 60px !important;
+    }
+  
+    /* Second data stream */
+    .data-stream:nth-child(5) {
+      left: 80px !important;
+      top: 60px !important;
+    }
+  
+    /* Third data stream */
+    .data-stream:nth-child(6) {
+      left: 120px !important;
+      top: 60px !important;
+    }
+  
+    /* Hide other data streams */
+    .data-stream:nth-child(7),
+    .data-stream:nth-child(8) {
+      display: none;
+    }
+  
+    /* Simplify transmission labels */
+    .transmission-label {
+      font-size: 7px;
+    }
+  
+    .transmission-label:nth-child(9) {
+      top: 20px !important;
+      left: 70px !important;
+    }
+  
+    .transmission-label:nth-child(10) {
+      bottom: 20px !important;
+      right: 50px !important;
+      left: auto !important;
+    }
+  
+    /* Adjust CTA position and size */
+    .bottom-cta-section {
+      position: relative;
+      bottom: auto;
+      margin: 20px 0 80px 0;
+    }
+  
+    .terminal-button {
+      padding: 12px 25px;
+      font-size: 14px;
+      width: 80%;
+      max-width: 250px;
+    }
+  
+    /* Footer adjustments */
+    .footer {
+      position: fixed;
+      bottom: 0;
+      padding: 8px 10px;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+  
+    .security-indicators {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      gap: 5px;
+    }
+  
+    .indicator {
+      font-size: 10px;
+    }
+  
+    .indicator span {
+      display: none; /* Show only dots on very small screens */
+    }
+  
+    .indicator-dot {
+      width: 10px;
+      height: 10px;
+      margin-right: 0;
+    }
+  
+    .onion-address {
+      font-size: 9px;
+      opacity: 0.7;
+    }
+  
+    /* Make WebGL background less resource-intensive */
+    #webgl-container {
+      opacity: 0.6;
+    }
+  }
+  
+  /* Extra small phones (under 375px) */
+  @media screen and (max-width: 375px) {
+    .glitch-header {
+      padding: 8px 5px;
+    }
+    
+    .glitch-logo {
+      font-size: 18px;
+    }
+    
+    .nav-button {
+      font-size: 12px;
+      padding: 8px 10px;
+    }
+    
+    .hero-title {
+      font-size: 1.3rem;
+    }
+    
+    .hero-text {
+      font-size: 13px;
+    }
+    
+    .binary-visualization {
+      transform: scale(0.7);
+    }
+    
+    .indicator-dot {
+      margin-right: 3px;
+    }
+    
+    .terminal-button {
+      width: 90%;
+      padding: 10px 15px;
+    }
+  }
+  
+  /* Taller phones (iPhone Pro Max, etc) */
+  @media screen and (min-height: 800px) and (max-width: 767px) {
+    .content-wrapper {
+      margin-top: 150px;
+    }
+    
+    .hero-section {
+      margin-top: 20px;
+    }
+    
+    .binary-visualization {
+      margin-top: 30px;
+      transform: scale(0.9);
+    }
+    
+    .bottom-cta-section {
+      margin-top: 40px;
+    }
+  }
+  
+  /* Fix for notched phones (iPhone X, etc.) */
+  @supports (padding-top: env(safe-area-inset-top)) {
+    .glitch-header {
+      padding-top: calc(10px + env(safe-area-inset-top));
+      padding-left: calc(10px + env(safe-area-inset-left));
+      padding-right: calc(10px + env(safe-area-inset-right));
+    }
+    
+    .footer {
+      padding-bottom: calc(8px + env(safe-area-inset-bottom));
+      padding-left: calc(10px + env(safe-area-inset-left));
+      padding-right: calc(10px + env(safe-area-inset-right));
+    }
+  }
+  
+  /* Ensure minimum touch target size */
+  @media (hover: none) and (pointer: coarse) {
+    .nav-button, .terminal-button {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+  
+  /* Landscape orientation fixes */
+  @media screen and (max-width: 767px) and (orientation: landscape) {
+    .glitch-header {
+      padding: 5px 10px;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    
+    .glitch-logo {
+      margin-bottom: 0;
+    }
+    
+    .navigation-area {
+      width: auto;
+    }
+    
+    .content-wrapper {
+      margin-top: 60px;
+    }
+    
+    .hero-section {
+      margin-top: 0;
+      flex-direction: row;
+      gap: 20px;
+      text-align: left;
+    }
+    
+    .hero-title, .hero-text {
+      width: 50%;
+    }
+    
+    .binary-visualization {
+      width: 40%;
+      transform: scale(0.6);
+      margin: -30px 0 0 0;
+    }
+    
+    .bottom-cta-section {
+      margin: 10px 0 50px 0;
+    }
+  }
+  
+  /* Device-specific fixes */
+  /* Samsung fold and extremely narrow devices */
+  @media screen and (max-width: 280px) {
+    .glitch-logo {
+      font-size: 16px;
+    }
+    
+    .navigation-area {
+      flex-direction: column;
+    }
+    
+    .nav-button {
+      width: 100%;
+    }
+    
+    .hero-title {
+      font-size: 1.1rem;
+    }
+    
+    .binary-visualization {
+      transform: scale(0.6);
+    }
+  }
+  
+  /* Fix for older devices that don't support modern CSS */
+  @supports not (display: flex) {
+    .glitch-header, .navigation-area, .security-indicators {
+      display: block;
+    }
+    
+    .nav-button, .indicator {
+      display: inline-block;
+      margin: 5px;
+    }
+  }
+  
+  /* Performance optimizations for lower-end devices */
+  @media screen and (max-width: 767px) {
+    /* Simplify animations to reduce GPU load */
+    @keyframes fade-in {
+      to {
+        opacity: 0.95;
+        transform: translateY(0);
+      }
+    }
+    
+    .scanlines {
+      opacity: 0.2;
+    }
+    
+    .grid-overlay {
+      background-size: 100px 100px;
+    }
+  }
+  /* Mobile-Only Custom Scrollbar Styles for TINKER TRADE */
+
+/* Default styles to hide custom scrollbar on desktop */
+@media screen and (min-width: 768px) {
+    /* Keep default browser scrollbar for desktop users */
+    html, body {
+      scrollbar-width: auto;
+      scrollbar-color: auto;
+    }
+  }
+  
+  /* Custom scrollbar only for mobile devices */
+  @media screen and (max-width: 767px) {
+    /* WebKit browsers (Chrome, Safari, newer Edge) */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+  
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+    }
+  
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 255, 170, 0.5);
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+  
+    /* Firefox */
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 255, 170, 0.5) rgba(0, 0, 0, 0.3);
+    }
+  
+    /* Fix for disappearing scrollbar issues on mobile */
+    html, body {
+      overflow-y: auto !important;
+      overflow-x: hidden;
+      height: 100% !important;
+      position: relative;
+      scrollbar-gutter: stable;
+    }
+  
+    /* Ensure content takes at least full viewport height */
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+    }
+  
+    /* Fix content container to properly handle overflow on mobile */
+    .content-container {
+      flex: 1;
+      height: auto !important;
+      min-height: calc(100vh - 130px - 40px); /* Adjusting for header and footer */
+      overflow-y: visible !important;
+      padding-right: 0 !important; /* Prevent content shift when scrollbar appears */
+    }
+    
+    /* Fix for the content wrapper to properly maintain scroll context */
+    .content-wrapper {
+      position: relative;
+      overflow: visible;
+      will-change: transform; /* Hardware acceleration for smoother scrolling */
+    }
+    
+    /* Ensure scrollbar is always visible on mobile */
+    body::-webkit-scrollbar {
+      -webkit-appearance: none;
+    }
+  }

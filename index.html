@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="tinkercad.css" />
+<link rel="icon" type="image/png" href="account.png">
+
+<title>TINKER TRADE | Secure Comms for the Underground</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r132/three.min.js"></script>
+
+</head>
+<body>
+<div class="content-container">
+  <!-- WebGL Background -->
+  <div id="webgl-container"></div>
+
+  <!-- Grid Overlay -->
+  <div class="grid-overlay"></div>
+
+  <!-- Terminal Container with fixed styling -->
+  <div class="terminal-container terminal-fade-out">
+    <!-- Improved terminal output with more technical commands -->
+    <div class="terminal-line">$ sudo ./quantum_init.sh --enable-ghost-protocol</div>
+    <div class="terminal-line">Initializing TinkerOS v3.7.2...</div>
+    <div class="terminal-line">Loading XChaCha20-Poly1305 cryptographic modules... [VERIFIED]</div>
+    <div class="terminal-line">Establishing quantum-resistant tunnels over TOR network... [OK]</div>
+    <div class="terminal-line">Running security audit... 0 vulnerabilities found</div>
+    <div class="terminal-line">System ready. Welcome to TINKER TRADE secure terminal v3.7.2</div>
+  </div>
+
+  <!-- Header with glitch effect -->
+  <header class="glitch-header">
+    <div class="glitch-logo">TINKER_TRADE</div>
+    <div class="navigation-area">
+      <div class="system-details">
+        <span class="status-online">SYSTEM: ONLINE</span>
+        <span class="status-secure">TUNNELS: SECURE</span>
+        <span class="status-encrypted">COMMS: ENCRYPTED</span>
+      </div>
+      <!-- Navigation Buttons -->
+      <a href="product.html" class="nav-button products-btn">
+        <span class="button-icon">[⚙]</span> Products
+      </a>
+      <a href="tinkertradeteam.html" class="nav-button team-btn">
+        <span class="button-icon">[⚡]</span> Team
+      </a>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <div class="content-wrapper">
+    <section class="hero-section">
+      <h1 class="hero-title">Secure Communication Devices for <span class="changing-word" id="changing-word">Hackers</span></h1>
+      <p class="hero-text">
+        TINKER TRADE brings offline, end-to-end encrypted communication hardware for students,
+        developer, and security researchers operating in hostile network environments. Our devices utilize quantum-resistant
+        cryptography and proprietary protocols to ensure your communications remain undetected and unbreakable.
+      </p>
+
+      <!-- Binary Data Visualization -->
+      <div class="binary-visualization">
+        <div class="binary-stream" style="width: 280px; height: 280px; top: 10px; left: 10px;"></div>
+        <div class="binary-stream" style="width: 240px; height: 240px; top: 30px; left: 30px;"></div>
+        <div class="binary-stream" style="width: 200px; height: 200px; top: 50px; left: 50px;"></div>
+
+        <!-- Data streams -->
+        <div class="data-stream" style="height: 150px; left: 50px; top: 75px;"></div>
+        <div class="data-stream" style="height: 120px; left: 100px; top: 90px;"></div>
+        <div class="data-stream" style="height: 180px; left: 150px; top: 60px;"></div>
+        <div class="data-stream" style="height: 130px; left: 200px; top: 85px;"></div>
+        <div class="data-stream" style="height: 160px; left: 250px; top: 70px;"></div>
+
+        <!-- Transmission labels -->
+        <div class="transmission-label" style="top: 35px; left: 120px;">ENCRYPTED TUNNEL</div>
+        <div class="transmission-label" style="bottom: 35px; right: 130px;">QUANTUM RESISTANT</div>
+
+        <!-- Device visualization -->
+        <div class="device-container">
+          <div class="device">
+            <div class="device-screen">
+              <div class="device-screen-content">
+                01011010 10101010<br>
+                E2E SECURE CONNECTION<br>
+                0110110 10101011<br>
+                NO METADATA STORED<br>
+                01011010 10101010
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CTA Section - Moved to bottom before footer -->
+  <div class="bottom-cta-section">
+    <a href="#" class="terminal-button">Request Access</a>
+  </div>
+
+  <!-- Footer with security indicators -->
+  <footer class="footer">
+    <div class="security-indicators">
+      <div class="indicator">
+        <div class="indicator-dot indicator-active"></div>
+        <span>E2E Encryption</span>
+      </div>
+      <div class="indicator">
+        <div class="indicator-dot indicator-active"></div>
+        <span>No Metadata</span>
+      </div>
+      <div class="indicator">
+        <div class="indicator-dot indicator-active"></div>
+        <span>Quantum-Safe</span>
+      </div>
+    </div>
+    <div class="onion-address">TOR: tinkertrade3xr72keb7dna.onion</div>
+  </footer>
+
+  <!-- Scanlines overlay effect -->
+  <div class="scanlines"></div>
+</div>
+
+<script>
+// Enhanced terminal animation with improved commands
+const commandInput = document.createElement('div');
+commandInput.className = 'command-prompt';
+commandInput.innerHTML = '<span class="prompt-symbol">root@tinkeros:~#</span> <input type="text" class="command-input" autofocus placeholder="Enter command...">';
+setTimeout(() => {
+  document.querySelector('.terminal-container').appendChild(commandInput);
+  document.querySelector('.command-input').focus();
+}, 3000);
+
+// Set a fixed height for the changing word element to prevent layout shifts
+const changingWordElement = document.getElementById('changing-word');
+// Store maximum height based on the tallest word
+const words = ["Hackers", "Students", "Developer"];
+let maxHeight = 0;
+
+// Typing animation for changing word in title
+let wordIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+let typingSpeed = 150;
+
+function typeEffect() {
+  const currentWord = words[wordIndex];
+  const changingWordElement = document.getElementById('changing-word');
+  
+  if (isDeleting) {
+    // Deleting text
+    changingWordElement.textContent = currentWord.substring(0, charIndex - 1);
+    charIndex--;
+    typingSpeed = 50; // Faster deletion
+  } else {
+    // Typing text
+    changingWordElement.textContent = currentWord.substring(0, charIndex + 1);
+    charIndex++;
+    typingSpeed = 150; // Normal typing speed
+  }
+  
+  // If word is complete
+  if (!isDeleting && charIndex === currentWord.length) {
+    isDeleting = true;
+    typingSpeed = 1500; // Pause at end of word
+  } 
+  // If deletion is complete
+  else if (isDeleting && charIndex === 0) {
+    isDeleting = false;
+    wordIndex = (wordIndex + 1) % words.length; // Move to next word
+    typingSpeed = 500; // Pause before starting new word
+  }
+  
+  setTimeout(typeEffect, typingSpeed);
+}
+
+// Start typing animation after delay
+setTimeout(typeEffect, 4000);
+
+// Simple WebGL background
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.getElementById('webgl-container').appendChild(renderer.domElement);
+
+// Grid of points
+const geometry = new THREE.BufferGeometry();
+const count = 1000;
+const positions = new Float32Array(count * 3);
+
+for (let i = 0; i < count; i++) {
+  positions[i * 3] = (Math.random() - 0.5) * 50;
+  positions[i * 3 + 1] = (Math.random() - 0.5) * 50;
+  positions[i * 3 + 2] = (Math.random() - 0.5) * 50;
+}
+
+geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+const material = new THREE.PointsMaterial({
+  size: 0.1,
+  color: 0x00ff45,
+  transparent: true,
+  opacity: 0.7
+});
+
+const points = new THREE.Points(geometry, material);
+scene.add(points);
+
+camera.position.z = 30;
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  points.rotation.x += 0.0005;
+  points.rotation.y += 0.0005;
+
+  renderer.render(scene, camera);
+}
+
+animate();
+
+// Handle resize
+window.addEventListener('resize', () => {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(width, height);
+
+});
+</script>
+
+</body>
+</html>
