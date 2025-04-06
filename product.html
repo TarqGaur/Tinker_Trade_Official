@@ -21,7 +21,7 @@
             --display-font: 'Major Mono Display', monospace;
             --light-bg: 240, 240, 240;
             --light-text: 0, 0, 0;
-            --light-accent: 0, 100, 255;
+            --light-accent: 0, 100, comod255;
         }
         
         /* Reset Styles */
@@ -82,16 +82,6 @@
             opacity: 0.3;
         }
         
-        /* WebGL Container for Background Effects */
-        #webgl-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
-
         /* Particle Background Container */
         #particles-js {
             position: fixed;
@@ -160,24 +150,12 @@
                 transform: none;
                 opacity: 0.8;
             }
-            7.5% {
-                transform: translate(2px, 0);
-            }
-            27.5% {
-                transform: translate(-2px, 0);
-            }
-            45% {
-                transform: translate(2px, 0);
-            }
-            72.5% {
-                transform: translate(0, 2px);
-            }
-            82.5% {
-                transform: translate(0, -2px);
-            }
-            97.5% {
-                transform: translate(-2px, 0);
-            }
+            7.5% { transform: translate(2px, 0); }
+            27.5% { transform: translate(-2px, 0); }
+            45% { transform: translate(2px, 0); }
+            72.5% { transform: translate(0, 2px); }
+            82.5% { transform: translate(0, -2px); }
+            97.5% { transform: translate(-2px, 0); }
         }
         
         /* Navigation Area Styles */
@@ -219,12 +197,6 @@
         body.light-mode .nav-button:hover {
             background: rgba(var(--light-accent), 0.1);
             box-shadow: 0 0 15px rgba(var(--light-accent), 0.5);
-        }
-        
-        .nav-button.products-btn:hover {
-            border-color: rgb(var(--neon-blue));
-            color: rgb(var(--neon-blue));
-            box-shadow: 0 0 15px rgba(var(--neon-blue), 0.5);
         }
         
         .nav-button::before {
@@ -303,29 +275,26 @@
         
         /* Page Title Styles */
         .page-title {
-    font-family: var(--display-font);
-    font-size: 2.5rem;
-    text-transform: uppercase;
-    margin: 0px 0 30px;
-    letter-spacing: 3px;
-    color: rgb(var(--terminal-green));
-    text-shadow: 0 0 10px rgba(var(--terminal-green), 0.7);
-    text-align: center;
-    word-wrap: break-word; /* Ensure text breaks properly */
-    max-width: 90%; /* Prevents overflow */
-}
-
-/* Media Query for Mobile Devices */
-@media (max-width: 768px) {
-    .page-title {
-        font-size: 1.4rem;  /* Aur chhota font */
-        letter-spacing: 1px; /* Letter spacing aur reduce */
-        margin: 10px 0 15px; /* Spacing optimize */
-        word-break: break-word; /* Long words wrap properly */
-    }
-}
-
-
+            font-family: var(--display-font);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            margin: 0px 0 30px;
+            letter-spacing: 3px;
+            color: rgb(var(--terminal-green));
+            text-shadow: 0 0 10px rgba(var(--terminal-green), 0.7);
+            text-align: center;
+            word-wrap: break-word;
+            max-width: 90%;
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 1.4rem;
+                letter-spacing: 1px;
+                margin: 10px 0 15px;
+                word-break: break-word;
+            }
+        }
         
         body.light-mode .page-title {
             color: rgb(var(--light-accent));
@@ -406,497 +375,183 @@
             color: rgba(var(--light-text), 0.7);
         }
         
-        /* Products Grid Styles */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Product Card Styles */
-        .product-card {
-            position: relative;
-            background: rgba(var(--dark), 0.8);
-            border: 1px solid rgba(var(--terminal-green), 0.5);
-            border-radius: 5px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-        }
-        
-        body.light-mode .product-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-color: rgb(var(--light-accent));
-        }
-        
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(var(--terminal-green), 0.2);
-            border-color: rgb(var(--terminal-green));
-        }
-        
-        body.light-mode .product-card:hover {
-            box-shadow: 0 10px 20px rgba(var(--light-accent), 0.2);
-            border-color: rgb(var(--light-accent));
-        }
-        
-        .product-image {
-            height: 200px;
-            overflow: hidden;
-            position: relative;
-            background: rgba(var(--darker), 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        body.light-mode .product-image {
-            background: rgba(230, 230, 230, 0.8);
-        }
-        
-        .product-info {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .product-name {
-            font-family: var(--display-font);
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-            color: rgb(var(--terminal-green));
-        }
-        
-        body.light-mode .product-name {
-            color: rgb(var(--light-accent));
-        }
-        
-        .product-description {
-            font-size: 14px;
-            line-height: 1.5;
-            color: rgba(var(--terminal-green), 0.8);
-            flex-grow: 1;
-        }
-        
-        body.light-mode .product-description {
-            color: rgba(var(--light-text), 0.8);
-        }
-        
-        .product-coming-soon {
-            margin-top: 15px;
-            font-family: var(--terminal-font);
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: rgb(var(--neon-red));
-            display: flex;
-            align-items: center;
-        }
-        
-        body.light-mode .product-coming-soon {
-            color: rgb(var(--neon-red));
-        }
-        
-        .loading-bar {
-            height: 10px;
-            width: 100%;
-            background: rgba(var(--dark), 0.5);
-            border: 1px solid rgba(var(--terminal-green), 0.5);
-            margin-top: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        body.light-mode .loading-bar {
-            background: rgba(200, 200, 200, 0.5);
-            border-color: rgb(var(--light-accent));
-        }
-        
-        .progress {
-            height: 100%;
-            background: rgb(var(--terminal-green));
-            width: 30%;
-            animation: progress-animation 10s infinite;
-            position: relative;
-        }
-        
-        body.light-mode .progress {
-            background: rgb(var(--light-accent));
-        }
-        
-        @keyframes progress-animation {
-            0% { width: 0%; }
-            30% { width: 30%; }
-            50% { width: 50%; }
-            60% { width: 48%; }
-            85% { width: 85%; }
-            95% { width: 95%; }
-            100% { width: 98%; }
-        }
-        
-        .decrypting-text {
-            animation: decrypt 10s forwards;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-        
-        @keyframes decrypt {
-            0% { 
-                content: "##########";
-                opacity: 0.5;
-            }
-            20% { 
-                content: "C#M#NG_SO#N";
-                opacity: 0.6;
-            }
-            40% { 
-                content: "CO#ING_SOON";
-                opacity: 0.7;
-            }
-            60% { 
-                content: "COMING_S#ON";
-                opacity: 0.8;
-            }
-            80% { 
-                content: "COMING_SOON";
-                opacity: 0.9;
-            }
-            100% { 
-                content: "COMING_SOON";
-                opacity: 1;
-            }
-        }
-        
-        /* Notification Styles for Access Denied */
-        .notification {
-            position: fixed;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(var(--dark), 0.9);
-            border: 1px solid rgb(var(--neon-red));
-            padding: 15px 20px;
-            border-radius: 5px;
-            color: rgb(var(--neon-red));
-            font-family: var(--terminal-font);
-            text-align: center;
-            z-index: 1000;
-            transition: top 0.5s ease;
-            min-width: 300px;
-            box-shadow: 0 0 15px rgba(var(--neon-red), 0.3);
-        }
-        
-        body.light-mode .notification {
-            background: rgba(255, 255, 255, 0.9);
-            border-color: rgb(var(--neon-red));
-            color: rgb(var(--neon-red));
-        }
-        
-        .notification.show {
-            top: 100px;
-        }
-        
-        .notification-title {
-            font-size: 16px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-        
-        .notification-message {
-            font-size: 14px;
-            color: rgba(var(--terminal-green), 0.9);
-        }
-        
-        body.light-mode .notification-message {
-            color: rgba(var(--light-text), 0.9);
-        }
-        
-        /* Hologram Visualization for Product Images */
-        .hologram {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto;
-        }
-        
-        .hologram-base {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 15px;
-            background: rgba(var(--terminal-green), 0.2);
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(var(--terminal-green), 0.5);
-        }
-        
-        body.light-mode .hologram-base {
-            background: rgba(var(--light-accent), 0.2);
-            box-shadow: 0 0 10px rgba(var(--light-accent), 0.5);
-        }
-        
-        .hologram-projection {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 110px;
-            background: rgba(var(--terminal-green), 0.05);
-            animation: hologram-flicker 4s infinite;
-        }
-        
-        body.light-mode .hologram-projection {
-            background: rgba(var(--light-accent), 0.05);
-        }
-        
-        .hologram-scan {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 2px;
-            background: rgba(var(--terminal-green), 0.8);
-            animation: hologram-scan 3s infinite;
-            box-shadow: 0 0 5px rgba(var(--terminal-green), 0.8);
-        }
-        
-        body.light-mode .hologram-scan {
-            background: rgba(var(--light-accent), 0.8);
-            box-shadow: 0 0 5px rgba(var(--light-accent), 0.8);
-        }
-        
-        @keyframes hologram-flicker {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.5; }
-            70% { opacity: 0.2; }
-            72% { opacity: 0.6; }
-            74% { opacity: 0.2; }
-            76% { opacity: 0.5; }
-            78% { opacity: 0.3; }
-        }
-        
-        @keyframes hologram-scan {
-            0% { bottom: 15px; opacity: 0.8; }
-            50% { bottom: 125px; opacity: 0.8; }
-            51% { opacity: 0.4; }
-            100% { bottom: 15px; opacity: 0.8; }
-        }
-        
-        .data-schema {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 70px;
-            height: 100px;
-            opacity: 0.7;
-        }
-        
-        .data-schema-line {
-            position: absolute;
-            height: 1px;
-            background: rgba(var(--terminal-green), 0.6);
-            left: 0;
-        }
-        
-        body.light-mode .data-schema-line {
-            background: rgba(var(--light-accent), 0.6);
-        }
-        
-        .data-schema-line:nth-child(1) { width: 50%; top: 10%; }
-        .data-schema-line:nth-child(2) { width: 70%; top: 25%; }
-        .data-schema-line:nth-child(3) { width: 40%; top: 40%; }
-        .data-schema-line:nth-child(4) { width: 60%; top: 55%; }
-        .data-schema-line:nth-child(5) { width: 50%; top: 70%; }
-        .data-schema-line:nth-child(6) { width: 65%; top: 85%; }
-        
-        /* Encrypted Data Visualization for Product Images */
-        .encrypted-data {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: var(--terminal-font);
-            font-size: 8px;
-            color: rgba(var(--terminal-green), 0.7);
-            text-align: center;
-            width: 100%;
-        }
-        
-        body.light-mode .encrypted-data {
-            color: rgba(var(--light-text), 0.7);
-        }
-        
-        /* Technical Icons for Product Images */
-        .technical-icon {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        /* Glitch Effect on Product Cards */
-        .card-glitch {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: rgba(var(--terminal-green), 0.5);
-            z-index: 5;
-            opacity: 0;
-        }
-        
-        body.light-mode .card-glitch {
-            background: rgba(var(--light-accent), 0.5);
-        }
-        
-        .product-card:hover .card-glitch {
-            animation: card-glitch-effect 3s infinite;
-        }
-        
-        @keyframes card-glitch-effect {
-            0%, 100% { opacity: 0; }
-            10% { 
-                opacity: 1; 
-                top: 20%;
-                height: 5px;
-            }
-            11% { 
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-                top: 50%;
-                height: 3px;
-            }
-            21% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 0;
-            }
-            60% {
-                opacity: 1;
-                top: 70%;
-                height: 2px;
-            }
-            61% {
-                opacity: 0;
-            }
-        }
-        
-        /* Data Packet Animation for Product Images */
-        .data-packet {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: rgba(var(--terminal-green), 0.7);
-            border-radius: 50%;
-            animation: data-packet-movement 10s infinite;
-            opacity: 0;
-        }
-        
-        body.light-mode .data-packet {
-            background: rgba(var(--light-accent), 0.7);
-        }
-        
-        @keyframes data-packet-movement {
-            0% {
-                opacity: 0;
-                transform: translate(0, 0);
-            }
-            10% {
-                opacity: 1;
-                transform: translate(20px, 30px);
-            }
-            30% {
-                transform: translate(-10px, 50px);
-            }
-            50% {
-                transform: translate(30px, 20px);
-            }
-            70% {
-                transform: translate(10px, 70px);
-            }
-            90% {
-                opacity: 1;
-                transform: translate(-20px, 40px);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(0, 0);
-            }
-        }
-        
-        .data-packet:nth-child(1) { animation-delay: 0s; }
-        .data-packet:nth-child(2) { animation-delay: 2s; }
-        .data-packet:nth-child(3) { animation-delay: 4s; }
-        .data-packet:nth-child(4) { animation-delay: 6s; }
-        .data-packet:nth-child(5) { animation-delay: 8s; }
-        
-        /* Redacted Access Text for Product Cards */
-        .redacted {
-            color: rgba(var(--terminal-green), 0.8);
-            position: relative;
-        }
-        
-        body.light-mode .redacted {
-            color: rgba(var(--light-text), 0.8);
-        }
-        
-        .redacted::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 1.5px;
-            background-color: rgba(var(--neon-red), 0.8);
-            animation: redact 4s infinite;
-        }
-        
-        @keyframes redact {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        /* Technical Details Section for Product Cards */
-        .technical-details {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            font-size: 8px;
-            color: rgba(var(--terminal-green), 0.5);
-            text-align: right;
-        }
-        
-        body.light-mode .technical-details {
-            color: rgba(var(--light-text), 0.5);
-        }
-        
+/* Coming Soon Section Styles */
+.coming-soon-section {
+    background: rgba(var(--dark), 0.8);
+    border: 1px solid rgba(var(--terminal-green), 0.5);
+    border-radius: 5px;
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: flicker 5s infinite;
+}
+
+body.light-mode .coming-soon-section {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgb(var(--light-accent));
+}
+
+.coming-soon-title {
+    font-family: var(--display-font);
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: rgb(var(--terminal-green));
+    text-shadow: 0 0 10px rgba(var(--terminal-green), 0.7);
+    margin-bottom: 20px;
+}
+
+body.light-mode .coming-soon-title {
+    color: rgb(var(--light-accent));
+    text-shadow: none;
+}
+
+.coming-soon-text {
+    font-family: var(--terminal-font);
+    font-size: 1.2rem;
+    color: rgba(var(--terminal-green), 0.8);
+    margin-bottom: 30px;
+}
+
+body.light-mode .coming-soon-text {
+    color: rgba(var(--light-text), 0.8);
+}
+
+/* Enhanced Loading Bar Styles */
+.loading-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.loading-bar {
+    height: 20px;
+    width: 100%;
+    background: rgba(var(--darker), 0.9);
+    border: 1px solid rgba(var(--terminal-green), 0.3);
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+    box-shadow: inset 0 0 10px rgba(var(--terminal-green), 0.2);
+}
+
+body.light-mode .loading-bar {
+    background: rgba(200, 200, 200, 0.9);
+    border-color: rgba(var(--light-accent), 0.3);
+    box-shadow: inset 0 0 10px rgba(var(--light-accent), 0.2);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background: rgb(var(--terminal-green));
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: progress-fill 6s infinite ease-in-out;
+    box-shadow: 0 0 15px rgba(var(--terminal-green), 0.8);
+}
+
+body.light-mode .progress-bar {
+    background: rgb(var(--light-accent));
+    box-shadow: 0 0 15px rgba(var(--light-accent), 0.8);
+}
+
+.progress-bar.glitch::before {
+    content: attr(data-glitch);
+    position: absolute;
+    top: -20px;
+    left: 10px;
+    font-family: var(--terminal-font);
+    font-size: 12px;
+    color: rgba(var(--terminal-green), 0.7);
+    animation: glitch-text 2s infinite;
+}
+
+body.light-mode .progress-bar.glitch::before {
+    color: rgba(var(--light-accent), 0.7);
+}
+
+.progress-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(var(--terminal-green), 0.2) 50%,
+        transparent 100%
+    );
+    animation: scan-effect 3s infinite linear;
+    pointer-events: none;
+}
+
+body.light-mode .progress-overlay {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(var(--light-accent), 0.2) 50%,
+        transparent 100%
+    );
+}
+
+.loading-status {
+    font-family: var(--terminal-font);
+    font-size: 14px;
+    color: rgba(var(--terminal-green), 0.8);
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: status-flicker 4s infinite;
+}
+
+body.light-mode .loading-status {
+    color: rgba(var(--light-text), 0.8);
+}
+
+/* Animations */
+@keyframes progress-fill {
+    0% { width: 0%; }
+    50% { width: 80%; }
+    55% { width: 78%; }
+    90% { width: 95%; }
+    95% { width: 93%; }
+    100% { width: 98%; }
+}
+
+@keyframes glitch-text {
+    0%, 100% { transform: translate(0, 0); opacity: 0.7; }
+    20% { transform: translate(2px, -2px); opacity: 0.5; }
+    40% { transform: translate(-2px, 2px); opacity: 0.6; }
+    60% { transform: translate(1px, -1px); opacity: 0.4; }
+    80% { transform: translate(-1px, 1px); opacity: 0.6; }
+}
+
+@keyframes scan-effect {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes status-flicker {
+    0%, 100% { opacity: 1; }
+    25% { opacity: 0.8; }
+    50% { opacity: 1; }
+    75% { opacity: 0.9; }
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.95; }
+    70% { opacity: 0.9; }
+    72% { opacity: 1; }
+    74% { opacity: 0.9; }
+}
         /* Footer Styles */
         .footer {
             position: fixed;
@@ -953,21 +608,6 @@
         body.light-mode .indicator-dot {
             background: rgb(var(--light-accent));
             box-shadow: 0 0 5px rgba(var(--light-accent), 0.7);
-        }
-        
-        .security-badge {
-            margin-top: 10px;
-            font-size: 10px;
-            background: rgba(var(--dark), 0.6);
-            border: 1px solid rgba(var(--terminal-green), 0.3);
-            padding: 2px 6px;
-            border-radius: 2px;
-            display: inline-block;
-        }
-        
-        body.light-mode .security-badge {
-            background: rgba(200, 200, 200, 0.6);
-            border-color: rgba(var(--light-accent), 0.3);
         }
         
         /* Terminal Window Styles */
@@ -1159,157 +799,53 @@
             color: rgba(var(--light-text), 0.7);
         }
         
-        /* Product Modal Styles */
-        .product-modal {
-            display: none;
-            position: fixed;
-            z-index: 1001;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        /* Scrollbar Styles */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
         }
         
-        .product-modal.show {
-            opacity: 1;
+        ::-webkit-scrollbar-track {
+            background: #050505;
+            border-left: 2px dashed rgba(0, 255, 0, 0.5);
+            box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.3);
+            filter: blur(0.5px);
         }
         
-        .modal-content {
-            background: rgb(var(--darker));
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid rgba(var(--terminal-green), 0.5);
-            width: 80%;
-            max-width: 600px;
-            color: rgb(var(--terminal-green));
+        ::-webkit-scrollbar-thumb {
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.8) 10%, rgba(0, 255, 0, 0.8) 80%);
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.9), 0 0 35px rgba(255, 0, 0, 0.7);
+            animation: hacker-glitch 0.6s infinite alternate, color-pulse 1.5s infinite alternate;
         }
         
-        body.light-mode .modal-content {
-            background: rgb(var(--light-bg));
-            border-color: rgb(var(--light-accent));
-            color: rgb(var(--light-text));
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #ff0000, #ff9900, #00ff00);
+            box-shadow: 0 0 25px #ff0000, 0 0 40px #00ff00, 0 0 55px #ff0000;
+            border-radius: 50px;
+            transform: scale(1.2);
+            animation: hacker-virus 0.2s infinite alternate;
         }
         
-        .close-modal {
-            color: rgb(var(--terminal-green));
-            float: right;
-            font-size: 28px;
-            cursor: pointer;
+        @keyframes hacker-glitch {
+            0% { transform: translateX(-2px) rotate(-1deg); }
+            100% { transform: translateX(2px) rotate(1deg); }
         }
         
-        body.light-mode .close-modal {
-            color: rgb(var(--light-text));
+        @keyframes hacker-virus {
+            0% { transform: translateX(-1px) translateY(1px); }
+            100% { transform: translateX(1px) translateY(-1px); }
         }
         
-        /* Accessibility Enhancements */
-        .nav-button:focus, .product-card:focus {
-            outline: 2px solid rgb(var(--terminal-green));
+        @keyframes color-pulse {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(60deg); }
         }
         
-        body.light-mode .nav-button:focus, body.light-mode .product-card:focus {
-            outline: 2px solid rgb(var(--light-accent));
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #ff0000 #050505;
         }
-        
-        /* Media Queries for Enhanced Mobile Responsiveness */
-        @media (max-width: 480px) {
-            .page-title {
-                font-size: 2rem;
-            }
-            .nav-button {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-            .product-card {
-                height: 350px;
-            }
-            .terminal-window, .chat-window {
-                width: 90%;
-                max-width: none;
-            }
-            #terminal-input, #chat-input {
-                font-size: 16px;
-            }
-            .terminal-output, .chat-output {
-                font-size: 14px;
-            }
-        }
-      /* 🕵️‍♂️ Ultimate Hacker Scrollbar v2 🔥 */
-::-webkit-scrollbar {
-    width: 12px;
-    height: 12px; /* Horizontal scrollbar ke liye */
-}
-
-/* Background of Scrollbar Track */
-::-webkit-scrollbar-track {
-    background: #050505;
-    border-left: 2px dashed rgba(0, 255, 0, 0.5);
-    box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.3);
-    filter: blur(0.5px);
-}
-
-/* Main Scrollbar Thumb (Draggable Part) */
-::-webkit-scrollbar-thumb {
-    background: radial-gradient(circle, rgba(255, 0, 0, 0.8) 10%, rgba(0, 255, 0, 0.8) 80%);
-    border-radius: 20px;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.9), 0 0 35px rgba(255, 0, 0, 0.7);
-    animation: hacker-glitch 0.6s infinite alternate, color-pulse 1.5s infinite alternate;
-}
-
-/* 🔥 VIRUS-INFECTED Hover Effect */
-::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(45deg, #ff0000, #ff9900, #00ff00);
-    box-shadow: 0 0 25px #ff0000, 0 0 40px #00ff00, 0 0 55px #ff0000;
-    border-radius: 50px;
-    transform: scale(1.2);
-    animation: hacker-virus 0.2s infinite alternate;
-}
-
-/* 🔥 Horizontal Scrollbar Styling */
-::-webkit-scrollbar-thumb:horizontal {
-    background: linear-gradient(90deg, #ff0000, #00ff00);
-    border-radius: 50px;
-}
-
-/* 🎭 Glitchy Hacker Effect */
-@keyframes hacker-glitch {
-    0% {
-        transform: translateX(-2px) rotate(-1deg);
-    }
-    100% {
-        transform: translateX(2px) rotate(1deg);
-    }
-}
-
-/* 🔴 Pixel Jitter Effect */
-@keyframes hacker-virus {
-    0% {
-        transform: translateX(-1px) translateY(1px);
-    }
-    100% {
-        transform: translateX(1px) translateY(-1px);
-    }
-}
-
-/* 🟢 Hacked Color Shift */
-@keyframes color-pulse {
-    0% {
-        filter: hue-rotate(0deg);
-    }
-    100% {
-        filter: hue-rotate(60deg);
-    }
-}
-
-/* 🔥 Cross-Browser Support (Firefox, Edge, etc.) */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: #ff0000 #050505;
-}
-
-
     </style>
 </head>
 <body>
@@ -1326,27 +862,24 @@
     <header class="glitch-header">
         <div class="glitch-logo">TINKER_TRADE</div>
         <div class="navigation-area">
-          <a href="index.html" class="nav-button team-btn">
-            <span class="button-icon">[🧱]</span> Home
-          </a>
-          <a href="tinkertradeteam.html" class="nav-button team-btn">
-            <span class="button-icon">[⚡]</span> Team
-          </a>
-          <button class="nav-button" onclick="openTerminal()">
-            <img src="https://img.icons8.com/?size=100&id=52515&format=png&color=000000" alt="Terminal Icon" width="20" height="20">
-              /~Terminal
-        </button>
-        
-        <button class="nav-button" onclick="openChat()">
-            <img src="https://img.icons8.com/?size=100&id=62489&format=png&color=000000" alt="Chat Icon" width="20" height="20">
-           /~Chat
-        </button>
-        
-        <button class="nav-button" onclick="toggleMode()">
-            <img src="https://img.icons8.com/?size=100&id=52494&format=png&color=000000" alt="Toggle Mode Icon" width="20" height="20">
-            /~Toggle Mode
-        </button>
-        
+            <a href="index.html" class="nav-button team-btn">
+                <span class="button-icon">[🧱]</span> Home
+            </a>
+            <a href="tinkertradeteam.html" class="nav-button team-btn">
+                <span class="button-icon">[⚡]</span> Team
+            </a>
+            <button class="nav-button" onclick="openTerminal()">
+                <img src="https://img.icons8.com/?size=100&id=52515&format=png&color=000000" alt="Terminal Icon" width="20" height="20">
+                /~Terminal
+            </button>
+            <button class="nav-button" onclick="openChat()">
+                <img src="https://img.icons8.com/?size=100&id=62489&format=png&color=000000" alt="Chat Icon" width="20" height="20">
+                /~Chat
+            </button>
+            <button class="nav-button" onclick="toggleMode()">
+                <img src="https://img.icons8.com/?size=100&id=52494&format=png&color=000000" alt="Toggle Mode Icon" width="20" height="20">
+                /~Toggle Mode
+            </button>
         </div>
         <button class="hamburger" onclick="toggleMenu()">☰</button>
     </header>
@@ -1361,7 +894,7 @@
             <div class="countdown-title">PRODUCT LAUNCH INITIALIZATION</div>
             <div class="countdown-timer">
                 <div class="countdown-unit">
-                    <div class="countdown-value" id="countdown-days">35</div>
+                    <div class="countdown-value" id="countdown-days">30</div>
                     <div class="countdown-label">Days</div>
                 </div>
                 <div class="countdown-unit">
@@ -1380,133 +913,18 @@
             <div class="security-badge">ENCRYPTED CHANNEL ESTABLISHED</div>
         </div>
         
-        <!-- Products Grid Section -->
-        <div class="products-grid">
-            <!-- Product 1: PHANTOM_MESH -->
-            <div class="product-card" data-product="PHANTOM_MESH">
-                <div class="card-glitch"></div>
-                <div class="product-image">
-                    <div class="hologram">
-                        <div class="hologram-base"></div>
-                        <div class="hologram-projection"></div>
-                        <div class="hologram-scan"></div>
-                        <div class="data-schema">
-                            <div class="data-schema-line"></div>
-                            <div class="data-schema-line"></div>
-                            <div class="data-schema-line"></div>
-                            <div class="data-schema-line"></div>
-                            <div class="data-schema-line"></div>
-                            <div class="data-schema-line"></div>
-                        </div>
-                    </div>
-                    <div class="data-packet"></div>
-                    <div class="data-packet"></div>
-                    <div class="data-packet"></div>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-name">PHANTOM_MESH</h2>
-                    <p class="product-description">Decentralized mesh networking system with end-to-end encryption. Operates independently of traditional ISPs. Untraceable communication channels with zero metadata leakage.</p>
-                    <div class="product-coming-soon">
-                        <span class="decryption-wrapper">
-                            <span id="decrypt-text-1">COMPILING ││░░</span>
-                        </span>
-                    </div>
-                    <div class="loading-bar">
-                        <div class="progress"></div>
-                    </div>
-                    <div class="technical-details">
-                        <div>VERSION: 0.9.7_BETA</div>
-                        <div>STATUS: <span class="redacted">CLASSIFIED</span></div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Product 2: CIPHER_PULSE -->
-            <div class="product-card" data-product="CIPHER_PULSE">
-                <div class="card-glitch"></div>
-                <div class="product-image">
-                    <div class="technical-icon">
-                        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="50" cy="50" r="45" stroke="rgba(0, 255, 70, 0.3)" stroke-width="1" />
-                            <circle cx="50" cy="50" r="35" stroke="rgba(0, 255, 70, 0.4)" stroke-width="1" />
-                            <circle cx="50" cy="50" r="25" stroke="rgba(0, 255, 70, 0.5)" stroke-width="1" />
-                            <line x1="5" y1="50" x2="95" y2="50" stroke="rgba(0, 255, 70, 0.3)" stroke-width="1" />
-                            <line x1="50" y1="5" x2="50" y2="95" stroke="rgba(0, 255, 70, 0.3)" stroke-width="1" />
-                            <rect x="40" y="40" width="20" height="20" stroke="rgba(0, 255, 70, 0.8)" stroke-width="1" />
-                        </svg>
-                    </div>
-                    <div class="encrypted-data">
-                        <div>0xA7F9C4E2B1D8</div>
-                        <div>INITIATING SEQUENCE</div>
-                        <div>COMPILING MODULES</div>
-                        <div>SECURING CHANNEL</div>
-                    </div>
-                    <div class="data-packet"></div>
-                    <div class="data-packet"></div>
-                    <div class="data-packet"></div>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-name">CIPHER_PULSE</h2>
-                    <p class="product-description">Advanced encryption device with quantum-resistant algorithms. Secures all digital communications against state-level actors. Includes anti-forensic capabilities and tamper detection.</p>
-                    <div class="product-coming-soon">
-                        <span class="decryption-wrapper">
-                            <span id="decrypt-text-2">ENCRYPTING ││░░</span>
-                        </span>
-                    </div>
-                    <div class="loading-bar">
-                        <div class="progress"></div>
-                    </div>
-                    <div class="technical-details">
-                        <div>VERSION: 1.3.2_ALPHA</div>
-                        <div>STATUS: <span class="redacted">RESTRICTED</span></div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Product 3: SHADOW_GUARD -->
-            <div class="product-card" data-product="SHADOW_GUARD">
-                <div class="card-glitch"></div>
-                <div class="product-image">
-                    <div class="technical-icon">
-                        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="20" y="20" width="60" height="60" stroke="rgba(0, 255, 70, 0.5)" stroke-width="1" />
-                            <rect x="30" y="30" width="40" height="40" stroke="rgba(0, 255, 70, 0.7)" stroke-width="1" />
-                            <circle cx="50" cy="50" r="15" stroke="rgba(0, 255, 70, 0.9)" stroke-width="1" />
-                            <path d="M20,50 L35,50" stroke="rgba(0, 255, 70, 0.6)" stroke-width="1" />
-                            <path d="M65,50 L80,50" stroke="rgba(0, 255, 70, 0.6)" stroke-width="1" />
-                            <path d="M50,20 L50,35" stroke="rgba(0, 255, 70, 0.6)" stroke-width="1" />
-                            <path d="M50,65 L50,80" stroke="rgba(0, 255, 70, 0.6)" stroke-width="1" />
-                        </svg>
-                    </div>
-                    <div class="encrypted-data">
-                        <div>0xE2F5D9C3B7A1</div>
-                        <div>SCANNING PERIMETER</div>
-                        <div>NEUTRALIZING SENSORS</div>
-                        <div>DEPLOYING COUNTERMEASURES</div>
-                    </div>
-                    <div class="data-packet"></div>
-                    <div class="data-packet"></div>
-                    <div class="data-packet"></div>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-name">SHADOW_GUARD</h2>
-                    <p class="product-description">Personal electronic countermeasure device. Disrupts surveillance cameras, microphones, and RF tracking. Creates privacy bubbles in public spaces. Fully autonomous operation.</p>
-                    <div class="product-coming-soon">
-                        <span class="decryption-wrapper">
-                            <span id="decrypt-text-4">DEPLOYING ││░░</span>
-                        </span>
-                    </div>
-                    <div class="loading-bar">
-                        <div class="progress"></div>
-                    </div>
-                    <div class="technical-details">
-                        <div>VERSION: 0.8.4_DELTA</div>
-                        <div>STATUS: <span class="redacted">FIELD_TEST</span></div>
-                    </div>
-                </div>
-            </div>
+      <!-- Coming Soon Section -->
+<div class="coming-soon-section">
+    <h2 class="coming-soon-title">COMING_SOON</h2>
+    <p class="coming-soon-text">Our groundbreaking secure communication tools are compiling in the shadows. Stay tuned for the ultimate privacy revolution.</p>
+    <div class="loading-container">
+        <div class="loading-bar">
+            <div class="progress-bar glitch" data-glitch="LOADING..."></div>
+            <div class="progress-overlay"></div>
         </div>
+        <div class="loading-status">INITIALIZING SYSTEMS...</div>
     </div>
+</div>
     
     <!-- Footer Section -->
     <footer class="footer">
@@ -1544,61 +962,11 @@
         </div>
     </div>
     
-    <!-- Product Modal -->
-    <div class="product-modal" id="product-modal" role="dialog" aria-labelledby="modal-title">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">×</span>
-            <h2 id="modal-title"></h2>
-            <p id="modal-description"></p>
-        </div>
-    </div>
-    
-    <!-- Notification for Access Denied -->
-    <div class="notification" id="notification">
-        <div class="notification-title">// ACCESS DENIED</div>
-        <div class="notification-message">Authentication required. Unauthorized access attempt logged.</div>
-    </div>
-    
     <!-- JavaScript Section -->
     <script>
-        // Product Descriptions for Terminal and Modal
-        const products = {
-            'PHANTOM_MESH': 'Decentralized mesh networking system with end-to-end encryption. Operates independently of traditional ISPs. Untraceable communication channels with zero metadata leakage.',
-            'CIPHER_PULSE': 'Advanced encryption device with quantum-resistant algorithms. Secures all digital communications against state-level actors. Includes anti-forensic capabilities and tamper detection.',
-            'SHADOW_GUARD': 'Personal electronic countermeasure device. Disrupts surveillance cameras, microphones, and RF tracking. Creates privacy bubbles in public spaces. Fully autonomous operation.'
-        };
-
-        // Decryption Codes for Terminal
-        const decryptCodes = {
-            'TINKER2025': 'Access granted. Secret message: "The shadows are our domain."',
-            'HACKERX': 'Elite status confirmed. Welcome to the inner circle.'
-        };
-
-        // System Messages for Terminal
-        const systemMessages = [
-            "[System] Network status: Secure",
-            "[System] Monitoring active",
-            "[System] Encryption keys rotated",
-            "[System] Firewall rules updated",
-            "[System] Anomalies detected: 0"
-        ];
-
-        // Audio Context for Terminal Sound Effects
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-        // Function to Play Beep Sound for Key Presses
-        function playBeep() {
-            const oscillator = audioCtx.createOscillator();
-            oscillator.type = 'square';
-            oscillator.frequency.setValueAtTime(1000, audioCtx.currentTime);
-            oscillator.connect(audioCtx.destination);
-            oscillator.start();
-            oscillator.stop(audioCtx.currentTime + 0.05);
-        }
-
         // Countdown Timer Functionality
         function updateCountdown() {
-            const launchDate = new Date('2025-04-01T00:00:00').getTime();
+            const launchDate = new Date('2025-05-06T00:00:00').getTime(); // Set to one month from April 6, 2025
             const now = new Date().getTime();
             const diff = launchDate - now;
 
@@ -1634,26 +1002,12 @@
 
         // Event Listener for Terminal Input
         terminalInput.addEventListener('keypress', function(e) {
-            playBeep();
             if (e.key === 'Enter') {
                 const command = terminalInput.value.trim();
                 terminalInput.value = '';
                 processCommand(command);
             }
         });
-
-        // Function to Simulate Typing Effect in Terminal and Chat
-        function typeText(text, element, delay = 50) {
-            let i = 0;
-            const interval = setInterval(() => {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                } else {
-                    clearInterval(interval);
-                }
-            }, delay);
-        }
 
         // Process Terminal Commands
         function processCommand(command) {
@@ -1666,10 +1020,8 @@
                     const password = command;
                     if (username === 'admin' && password === 'hacktheplanet') {
                         isLoggedIn = true;
-                        const welcomeMessage = 'Access granted. Welcome, elite operative.';
-                        const commandsMessage = 'Available commands: help, products, info [product], decrypt [code], whoami, status, logout, exit, clear';
-                        terminalOutput.innerHTML += `<div>${welcomeMessage}</div>`;
-                        terminalOutput.innerHTML += `<div>${commandsMessage}</div>`;
+                        terminalOutput.innerHTML += `<div>Access granted. Welcome, elite operative.</div>`;
+                        terminalOutput.innerHTML += `<div>Available commands: help, status, whoami, logout, exit, clear</div>`;
                     } else {
                         terminalOutput.innerHTML += `<div>Access denied. Try again.</div>`;
                         username = '';
@@ -1677,47 +1029,32 @@
                 }
             } else {
                 terminalOutput.innerHTML += `<div>$ ${command}</div>`;
-                let responseDiv = document.createElement('div');
-                terminalOutput.appendChild(responseDiv);
                 let response = '';
-                if (command.toLowerCase() === 'clear') {
-                    terminalOutput.innerHTML = '';
-                    return;
-                } else if (command.startsWith('info ')) {
-                    const product = command.substring(5).toUpperCase();
-                    response = products[product] || 'Product not found.';
-                } else if (command.startsWith('decrypt ')) {
-                    const code = command.substring(8);
-                    response = decryptCodes[code] || 'Invalid code.';
-                } else {
-                    switch (command.toLowerCase()) {
-                        case 'help':
-                            response = 'Commands: help, products, info [product], decrypt [code], whoami, status, logout, exit, clear';
-                            break;
-                        case 'products':
-                            response = 'PHANTOM_MESH, CIPHER_PULSE, SHADOW_GUARD';
-                            break;
-                        case 'status':
-                            response = 'System operational. Launch imminent.';
-                            break;
-                        case 'whoami':
-                            response = 'You are an elite member of TINKER_TRADE, the world\'s most reputed hacker group.';
-                            break;
-                        case 'logout':
-                            isLoggedIn = false;
-                            username = '';
-                            response = 'Logged out.';
-                            break;
-                        case 'exit':
-                            closeTerminal();
-                            return;
-                        default:
-                            response = 'Command not recognized. Type "help" for options.';
-                    }
+                switch (command.toLowerCase()) {
+                    case 'clear':
+                        terminalOutput.innerHTML = '';
+                        return;
+                    case 'help':
+                        response = 'Commands: help, status, whoami, logout, exit, clear';
+                        break;
+                    case 'status':
+                        response = 'System operational. Launch in one month.';
+                        break;
+                    case 'whoami':
+                        response = 'You are an elite member of TINKER_TRADE.';
+                        break;
+                    case 'logout':
+                        isLoggedIn = false;
+                        username = '';
+                        response = 'Logged out.';
+                        break;
+                    case 'exit':
+                        closeTerminal();
+                        return;
+                    default:
+                        response = 'Command not recognized. Type "help" for options.';
                 }
-                setTimeout(() => {
-                    typeText(response, responseDiv, 50); // Typing effect with 50ms delay
-                }, 500); // 500ms delay before response starts typing
+                terminalOutput.innerHTML += `<div>${response}</div>`;
                 terminalOutput.scrollTop = terminalOutput.scrollHeight;
             }
         }
@@ -1735,15 +1072,11 @@
                     <div>elite@TINKER_TRADE:~$ </div>
                 `;
             }
-            // Start periodic system messages
             systemMessageInterval = setInterval(() => {
-                const message = systemMessages[Math.floor(Math.random() * systemMessages.length)];
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('system-message');
-                terminalOutput.appendChild(messageDiv);
-                typeText(message, messageDiv, 30); // Faster typing for system messages
+                const messages = ["[System] Network status: Secure", "[System] Monitoring active"];
+                terminalOutput.innerHTML += `<div class="system-message">${messages[Math.floor(Math.random() * messages.length)]}</div>`;
                 terminalOutput.scrollTop = terminalOutput.scrollHeight;
-            }, 15000); // Every 15 seconds
+            }, 15000);
         }
 
         // Close Terminal Function
@@ -1757,8 +1090,7 @@
         // Chat Functionality
         const chatMessages = [
             "Operative Alpha: Connection secured.",
-            "Operative Beta: Ready for deployment.",
-            "Operative Gamma: Systems online."
+            "Operative Beta: Ready for deployment."
         ];
         let chatInterval;
 
@@ -1769,20 +1101,11 @@
             setTimeout(() => chatWindow.classList.add('show'), 10);
             const chatOutput = document.getElementById('chat-output');
             chatOutput.innerHTML = '';
-            chatMessages.forEach(msg => {
-                chatOutput.innerHTML += `<div>${msg}</div>`;
-            });
-            // Start periodic chat messages from other operatives
+            chatMessages.forEach(msg => chatOutput.innerHTML += `<div>${msg}</div>`);
             chatInterval = setInterval(() => {
-                const operatives = ["Operative Alpha", "Operative Beta", "Operative Gamma"];
-                const messages = ["Status update: All systems nominal.", "Encryption keys synchronized.", "Surveillance detected, countermeasures deployed."];
-                const randomOperative = operatives[Math.floor(Math.random() * operatives.length)];
-                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-                const messageDiv = document.createElement('div');
-                chatOutput.appendChild(messageDiv);
-                typeText(`${randomOperative}: ${randomMessage}`, messageDiv, 30);
+                chatOutput.innerHTML += `<div>Operative Gamma: Systems compiling...</div>`;
                 chatOutput.scrollTop = chatOutput.scrollHeight;
-            }, 20000); // Every 20 seconds
+            }, 20000);
         }
 
         // Close Chat Function
@@ -1802,32 +1125,10 @@
                 chatOutput.innerHTML += `<div>You: ${message}</div>`;
                 input.value = '';
                 setTimeout(() => {
-                    const responseDiv = document.createElement('div');
-                    chatOutput.appendChild(responseDiv);
-                    typeText("Operative Delta: Acknowledged.", responseDiv, 30);
+                    chatOutput.innerHTML += `<div>Operative Delta: Acknowledged.</div>`;
                     chatOutput.scrollTop = chatOutput.scrollHeight;
                 }, 1000);
             }
-        }
-
-        // Product Card Modal Interaction
-        document.querySelectorAll('.product-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                const product = card.getAttribute('data-product');
-                const description = products[product];
-                document.getElementById('modal-title').textContent = product;
-                document.getElementById('modal-description').textContent = description;
-                const modal = document.getElementById('product-modal');
-                modal.style.display = 'block';
-                setTimeout(() => modal.classList.add('show'), 10);
-            });
-        });
-
-        // Close Modal Function
-        function closeModal() {
-            const modal = document.getElementById('product-modal');
-            modal.classList.remove('show');
-            setTimeout(() => modal.style.display = 'none', 300);
         }
 
         // Toggle Dark/Light Mode
@@ -1840,27 +1141,6 @@
             const nav = document.querySelector('.navigation-area');
             nav.classList.toggle('show');
         }
-
-        // Close Menu on Nav Button Click for Mobile
-        document.querySelectorAll('.nav-button').forEach(button => {
-            button.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    document.querySelector('.navigation-area').classList.remove('show');
-                }
-            });
-        });
-
-        // Keyboard Shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 't' && !document.getElementById('terminal-window').contains(e.target)) {
-                openTerminal();
-            }
-            if (e.key === 'Escape') {
-                closeModal();
-                closeTerminal();
-                closeChat();
-            }
-        });
 
         // Particle Background Configuration
         particlesJS('particles-js', {
