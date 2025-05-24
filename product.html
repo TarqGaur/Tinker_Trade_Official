@@ -93,51 +93,9 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Calming Background */
-        .hero-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(135deg, 
-                rgba(52, 168, 83, 0.1) 0%, 
-                rgba(26, 115, 232, 0.05) 50%, 
-                rgba(66, 133, 244, 0.1) 100%),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><radialGradient id="cloud1" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.8"/><stop offset="100%" stop-color="%23f0f8ff" stop-opacity="0.3"/></radialGradient><radialGradient id="cloud2" cx="50%" cy="50%"><stop offset="0%" stop-color="%23e6f3ff" stop-opacity="0.6"/><stop offset="100%" stop-color="%23cce7ff" stop-opacity="0.2"/></radialGradient></defs><rect width="1200" height="800" fill="%2387ceeb"/><ellipse cx="300" cy="150" rx="120" ry="60" fill="url(%23cloud1)"/><ellipse cx="280" cy="130" rx="80" ry="40" fill="url(%23cloud1)"/><ellipse cx="320" cy="140" rx="100" ry="50" fill="url(%23cloud1)"/><ellipse cx="700" cy="200" rx="140" ry="70" fill="url(%23cloud2)"/><ellipse cx="680" cy="180" rx="90" ry="45" fill="url(%23cloud2)"/><ellipse cx="720" cy="190" rx="110" ry="55" fill="url(%23cloud2)"/><ellipse cx="900" cy="120" rx="100" ry="50" fill="url(%23cloud1)"/><ellipse cx="880" cy="100" rx="70" ry="35" fill="url(%23cloud1)"/><circle cx="200" cy="600" r="80" fill="%2332a852" opacity="0.6"/><circle cx="180" cy="620" r="60" fill="%2334a853" opacity="0.4"/><circle cx="220" cy="580" r="50" fill="%2336aa54" opacity="0.5"/><path d="M0,500 Q300,450 600,480 T1200,460 L1200,800 L0,800 Z" fill="%2334a853" opacity="0.3"/><path d="M0,600 Q400,550 800,580 T1200,560 L1200,800 L0,800 Z" fill="%2332a852" opacity="0.4"/></svg>');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            z-index: -2;
-            animation: gentle-sway 20s ease-in-out infinite;
-        }
+  
 
-        @keyframes gentle-sway {
-            0%, 100% { transform: translateX(0) scale(1); }
-            25% { transform: translateX(-10px) scale(1.01); }
-            50% { transform: translateX(5px) scale(1.02); }
-            75% { transform: translateX(-5px) scale(1.01); }
-        }
-
-        /* Floating Particles */
-        .floating-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(52, 168, 83, 0.3);
-            border-radius: 50%;
-            animation: float-up linear infinite;
-        }
+ 
 
         @keyframes float-up {
             0% {
